@@ -61,4 +61,7 @@ env IRSTLM=$HOME/irstlm ~/irstlm/bin/build-lm.sh \
     -alignment grow-diag-final-and \
     -lm 0:3:${current_path}/lm/${project_name}.blm.${target_lang}:8 \
     -external-bin-dir ~/mosesdecoder/tools \
-    -cores 4 > ${current_path}/train/training.out
+    -hierarchical \
+    -glue-grammar \
+    -max-phrase-length 5 \
+    -cores 2 > ${current_path}/train/training.out
