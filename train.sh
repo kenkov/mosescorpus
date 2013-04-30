@@ -31,6 +31,36 @@ mkcorpus() {
   esac
 }
 
+phrase_model() {
+  ## model training
+  ~/mosesdecoder/scripts/training/train-model.perl \
+    -root-dir ${current_path}/train \
+    -corpus ${current_path}/corpus/${project_name}.clean \
+    -f $source_lang \
+    -e $target_lang \
+    -reordering hier-msd-bidirectional-fe \
+    -alignment grow-diag-final-and \
+    -lm 0:3:${current_path}/lm/${project_name}.blm.${target_lang}:8 \
+    -external-bin-dir ~/mosesdecoder/tools \
+    -cores 2 > ${current_path}/train/training.out
+}
+
+hier_model() {
+  ## model training
+  ~/mosesdecoder/scripts/training/train-model.perl \
+    -root-dir ${current_path}/train \
+    -corpus ${current_path}/corpus/${project_name}.clean \
+    -f $source_lang \
+    -e $target_lang \
+    -alignment grow-diag-final-and \
+    -lm 0:3:${current_path}/lm/${project_name}.blm.${target_lang}:8 \
+    -hierarchical \
+    -glue-grammar \
+    -max-phrase-length 2 \
+    -external-bin-dir ~/mosesdecoder/tools \
+    -cores 2 > ${current_path}/train/training.out
+}
+
 ## make directories
 mkdir ${current_path}/{lm,train}
 
@@ -52,16 +82,5 @@ env IRSTLM=$HOME/irstlm ~/irstlm/bin/build-lm.sh \
 ~/mosesdecoder/bin/build_binary  ${current_path}/lm/${project_name}.arpa.${target_lang}  ${current_path}/lm/${project_name}.blm.${target_lang}
 
 ## model training
-~/mosesdecoder/scripts/training/train-model.perl \
-    -root-dir ${current_path}/train \
-    -corpus ${current_path}/corpus/${project_name}.clean \
-    -reordering distance \
-    -f $source_lang \
-    -e $target_lang \
-    -alignment grow-diag-final-and \
-    -lm 0:3:${current_path}/lm/${project_name}.blm.${target_lang}:8 \
-    -external-bin-dir ~/mosesdecoder/tools \
-    -hierarchical \
-    -glue-grammar \
-    -max-phrase-length 5 \
-    -cores 2 > ${current_path}/train/training.out
+phrase_model
+#hier_model()
