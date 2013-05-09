@@ -56,7 +56,6 @@ hier_model() {
     -lm 0:3:${current_path}/lm/${project_name}.blm.${target_lang}:8 \
     -hierarchical \
     -glue-grammar \
-    -max-phrase-length 2 \
     -external-bin-dir ~/mosesdecoder/tools \
     -cores 2 > ${current_path}/train/training.out
 }
