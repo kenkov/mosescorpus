@@ -82,4 +82,4 @@ env IRSTLM=$HOME/irstlm ~/irstlm/bin/build-lm.sh \
 
 ## model training
 phrase_model
-#hier_model()
+#hier_model
