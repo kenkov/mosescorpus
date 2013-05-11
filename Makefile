@@ -29,7 +29,7 @@ hier-ondisk:
 	gunzip $(model_path)/rule-table.gz
 	$(moses_bin_path)/CreateOnDiskPt 1 1 5 20 2 $(model_path)/rule-table $(model_path)/rule-table.folder
 	mv $(model_path)/moses.ini $(model_path)/moses.ini.orig
-	sed -e "s%6 0 0 5 `pwd`/$(model_path)/rule-table\.gz%2 0 0 5 `pwd`/$(model_path)/rule-table\.folder%g" $(model_path)/moses.ini.orig >$(model_path)moses.ini
+	sed -e "s%6 0 0 5 `pwd`/$(model_path)/rule-table\.gz%2 0 0 5 `pwd`/$(model_path)/rule-table\.folder%g" $(model_path)/moses.ini.orig >$(model_path)/moses.ini
 
 blue:
 	$(moses_path)/scripts/generic/multi-bleu.perl $(bleu_ref) <$(bleu_mt_output)
