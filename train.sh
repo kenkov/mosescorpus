@@ -87,7 +87,7 @@ env IRSTLM=$HOME/irstlm ~/irstlm/bin/build-lm.sh \
 
 ## model training
 if [ $method = hier ]; then
-    phrase_model
-elif [ $method = phrase ]; then
     hier_model
+elif [ $method = phrase ]; then
+    phrase_model
 fi
