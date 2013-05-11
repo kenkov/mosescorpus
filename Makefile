@@ -1,13 +1,14 @@
 project = project_name
+method = method_name
 
 ja2en:
-	./train.sh $(project) ja en
+	./train.sh $(project) ja en $(method)
 
 en2ja:
-	./train.sh $(project) en ja
+	./train.sh $(project) en ja $(method)
 
 ja2ja:
-	./train.sh $(project) ja ja
+	./train.sh $(project) ja ja $(method)
 
 tw:
 	./train.sh twitter tworig twrep

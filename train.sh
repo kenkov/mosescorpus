@@ -9,6 +9,11 @@
 project_name=$1
 source_lang=$2
 target_lang=$3
+# method must be "phrase" or "hier"
+method=$4
+if [ $method != "phrase" ] -a [ $method != "hier" ]; then
+    exit 1
+fi
 current_path=`pwd`
 
 mkcorpus() {
@@ -81,5 +86,8 @@ env IRSTLM=$HOME/irstlm ~/irstlm/bin/build-lm.sh \
 ~/mosesdecoder/bin/build_binary  ${current_path}/lm/${project_name}.arpa.${target_lang}  ${current_path}/lm/${project_name}.blm.${target_lang}
 
 ## model training
-phrase_model
-#hier_model
+if [ $method = hier ]; then
+    phrase_model
+elif [ $method = phrase ]; then
+    hier_model
+fi
