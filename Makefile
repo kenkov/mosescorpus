@@ -1,16 +1,16 @@
 # You must set your project name and a decoding method.
 # The method variable can be chosen in phrase and hier.
-project = jec
+project = project_name
 method = hier
 
 # If you translate sentences written in a file,
 # please specifiy next filenames
-translation_file = testset.en
+translation_file = translation_file_name
 translation_output = mt-output
 
 # if you score translation with BLEU, please set
 # the following variables for files.
-bleu_ref = testset.ja
+bleu_ref = testset_file_name
 bleu_mt_output = $(translation_output)
 
 moses_path = ~/mosesdecoder
