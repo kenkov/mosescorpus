@@ -1,11 +1,17 @@
 # You must set your project name and a decoding method.
 # The method variable can be chosen in phrase and hier.
-project = project_name
-method = method_name
+project = jec
+method = hier
+
+# If you translate sentences written in a file,
+# please specifiy next filenames
+translation_file = testset.en
+translation_output = mt-output
+
 # if you score translation with BLEU, please set
 # the following variables for files.
-bleu_ref = blue-ref_filename
-bleu_mt_output = mt-output_filename
+bleu_ref = testset.ja
+bleu_mt_output = $(translation_output)
 
 moses_path = ~/mosesdecoder
 corpus_path = corpus
@@ -31,7 +37,10 @@ hier-ondisk:
 	mv $(model_path)/moses.ini $(model_path)/moses.ini.orig
 	sed -e "s%6 0 0 5 `pwd`/$(model_path)/rule-table\.gz%2 0 0 5 `pwd`/$(model_path)/rule-table\.folder%g" $(model_path)/moses.ini.orig >$(model_path)/moses.ini
 
-blue:
+trans:
+	$(moses_path)/bin/moses_chart -f $(model_path)/moses.ini <$(translation_file) >$(translation_output)
+
+bleu:
 	$(moses_path)/scripts/generic/multi-bleu.perl $(bleu_ref) <$(bleu_mt_output)
 
 .PHONY : clean

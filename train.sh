@@ -73,7 +73,10 @@ mkcorpus $source_lang
 mkcorpus $target_lang
 
 # make clear corpus (filter sentences whose length is between 1 and 80)
-~/mosesdecoder/scripts/training/clean-corpus-n.perl ${current_path}/corpus/${project_name}.tok $source_lang $target_lang ${current_path}/corpus/${project_name}.clean 1 80
+~/mosesdecoder/scripts/training/clean-corpus-n.perl \
+    ${current_path}/corpus/${project_name}.tok \
+    $source_lang $target_lang ${current_path}/corpus/${project_name}.clean \
+    1 80
 
 ## Language model training
 ~/irstlm/bin/add-start-end.sh < ${current_path}/corpus/${project_name}.${target_lang} > ${current_path}/lm/${project_name}.sb.${target_lang}
